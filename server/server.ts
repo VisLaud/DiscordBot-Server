@@ -1,9 +1,9 @@
 import express from 'express';
+import http from 'http';
 import mongoose from 'mongoose';
 import { config } from './config/config';
 import Logging from './lib/Logging';
-import http from 'http';
-import userInfoRoutes from './routes/UserInfo';
+import userInfoRouter from './routes/UserInfo';
 
 const router = express();
 
@@ -58,7 +58,7 @@ const StartServer = () => {
   });
 
   /** Routes */
-  router.use('/userInfo', userInfoRoutes);
+  router.use('/userInfo', userInfoRouter);
 
   /** Healthcheck */
   router.get('/ping', (req, res, next) =>
