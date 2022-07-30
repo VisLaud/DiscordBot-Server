@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { config } from './config/config';
 import Logging from './lib/Logging';
 import http from 'http';
+import userInfoRoutes from './routes/UserInfo';
 
 const router = express();
 
@@ -56,9 +57,8 @@ const StartServer = () => {
     next();
   });
 
-  // /** Routes */
-  // router.use('/authors', authorRoutes);
-  // router.use('/books', bookRoutes);
+  /** Routes */
+  router.use('/userInfo', userInfoRoutes);
 
   /** Healthcheck */
   router.get('/ping', (req, res, next) =>
