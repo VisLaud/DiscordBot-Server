@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { config } from './config/config';
 import Logging from './lib/Logging';
 import userInfoRouter from './routes/UserInfo';
+import { Server } from 'socket.io';
 
 const router = express();
 
@@ -76,9 +77,24 @@ const StartServer = () => {
     });
   });
 
-  http
-    .createServer(router)
-    .listen(config.server.port, () =>
-      Logging.info(`Server is running on port ${config.server.port}`)
-    );
+  const httpServer = http.createServer(router);
+
+  const io = new Server(httpServer, {
+    cors: {
+      origin: '*',
+      methods: ['GET', 'POST'],
+    },
+  });
+
+  io.on('connection', (socket) => {
+    Logging.info('Connected');
+
+    socket.on('disconnect', () => {
+      Logging.error('Disconnected');
+    });
+  });
+
+  httpServer.listen(config.server.port, () =>
+    Logging.info(`Server is running on port ${config.server.port}`)
+  );
 };
