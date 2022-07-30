@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
-import UserInfo from '../model/userInfo';
+import UserInfo from '../model/UserInfo';
 
 const getUserStatus = (req: Request, res: Response, next: NextFunction) => {
   return UserInfo.findOne({ user: req.params.user })
