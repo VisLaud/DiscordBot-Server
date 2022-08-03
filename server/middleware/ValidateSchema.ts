@@ -20,6 +20,7 @@ export const Schemas = {
     setStatus: Joi.object<iUserInfo>({
       user: Joi.string().required(),
       status: Joi.boolean().required(),
+      activePages: Joi.boolean().required(),
     }),
     createUser: Joi.object<iUserInfo>({
       user: Joi.string().required(),

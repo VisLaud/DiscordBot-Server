@@ -11,7 +11,7 @@ const getUserStatus = (req: Request, res: Response, next: NextFunction) => {
 const setUserStatus = (req: Request, res: Response, next: NextFunction) => {
   return UserInfo.updateOne(
     { user: req.body.user },
-    { status: req.body.status }
+    { status: req.body.status, activePages: req.body.activePages }
   )
     .then((status) => {
       if (status) {

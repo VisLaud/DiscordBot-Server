@@ -5,6 +5,7 @@ import { config } from './config/config';
 import Logging from './lib/Logging';
 import userInfoRouter from './routes/UserInfo';
 import { Server } from 'socket.io';
+import rootSocket from './lib/socket';
 
 const router = express();
 
@@ -86,13 +87,7 @@ const StartServer = () => {
     },
   });
 
-  io.on('connection', (socket) => {
-    Logging.info('Connected');
-
-    socket.on('disconnect', () => {
-      Logging.error('Disconnected');
-    });
-  });
+  rootSocket(io);
 
   httpServer.listen(config.server.port, () =>
     Logging.info(`Server is running on port ${config.server.port}`)
